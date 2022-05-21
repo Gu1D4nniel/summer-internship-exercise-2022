@@ -1,4 +1,4 @@
-package com.premiumminds.internship.screenlocking;
+package test.java.com.premiumminds.internship.screenlocking;
 
 import static org.junit.Assert.assertEquals;
 

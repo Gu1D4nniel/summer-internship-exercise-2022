@@ -1,4 +1,4 @@
-package com.premiumminds.internship.screenlocking;
+package main.java.com.premiumminds.internship.screenlocking;
 
 import java.util.concurrent.Future;
 
@@ -15,5 +15,26 @@ class ScreenLockinPattern implements IScreenLockinPattern {
   */
   public Future<Integer> countPatternsFrom(int firstPoint,int length) {
     throw new RuntimeException("Not Implemented Yet");
-  };
+  }
+
+  /**
+	 * Integer value that represents the position of the first
+	 * point in the Pattern.
+	 * This value must not be less than 1 nor greater than 9
+	 * @return number of the position
+	 */
+public int firstPoint() {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
+	/**
+	 * Integer value that represents the size of the Pattern
+	 * This value must not be less than 1 nor greater than 9
+	 * @return number of points to include
+	 */
+public int length() {
+	// TODO Auto-generated method stub
+	return 0;
+};
 }
