@@ -25,7 +25,10 @@ public class ScreenLockinPatternTest {
    *
    */
   public ScreenLockinPatternTest() {
+  
+  
   };
+  
 
 
   @Test
