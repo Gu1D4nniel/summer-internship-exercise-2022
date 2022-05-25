@@ -12,6 +12,7 @@ import javafx.concurrent.Task;
 
 /**
  * Created by aamado on 05-05-2022. Edited by Gu1D4niel on 21-05-2022.
+ * For further information on the project, please read the README.txt file.
  */
 class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 	
