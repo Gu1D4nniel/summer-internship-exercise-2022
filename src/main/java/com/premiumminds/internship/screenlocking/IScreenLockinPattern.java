@@ -12,13 +12,13 @@ interface IScreenLockinPattern {
 	 * point in the Pattern.
 	 * @return number of the position
 	 */
-	int firstPoint();
+	int firstPoint(int num);
 	
 	/**
 	 * Integer value that represents the size of the Pattern
 	 * @return number of points to include
 	 */
-	int length();
+	int length(int num);
   /**
     * Method to count patterns from firstPoint with the length
     * @param firstPoint initial matrix position
