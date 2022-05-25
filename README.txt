@@ -1,5 +1,5 @@
 ScreenLockinPattern - Guilherme Salgueiro
---------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------
 
 Apresento aqui a minha resolucao para o problema proposto pela Premium Minds, em que
 o objetivo era calcular o numero de padroes possiveis de se formar, indicando um ponto
@@ -29,7 +29,7 @@ de um programa, uma vez que, durante o meu percurso academico, nao tera sido abo
 do curso. Este ponto e o anterior tornaram o processo de desenvolvimento mais desafiador, mas ao mesmo tempo
 ajudaram a enriquecer o meu conhecimento em desenvolvimento em Java.
 
----------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Tendo sido feitas estas observacoes, agradeco desde ja pela oportunidade de participar neste processo de selecao,
 e espero continuar a aprender e crescer enquanto programador junto da Premium Minds.
