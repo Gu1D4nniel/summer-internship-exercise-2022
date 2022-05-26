@@ -3,19 +3,19 @@ package main.java.com.premiumminds.internship.screenlocking;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import javafx.concurrent.Task;
 
 /**
  * Created by aamado on 05-05-2022. Edited by Gu1D4niel on 21-05-2022.
  * For further information on the project, please read the README.txt file.
  */
 class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
-	
+	//class constructor
 	public ScreenLockinPattern() throws InterruptedException, ExecutionException {
 		
 		Future<Integer> future = new ScreenLockinPattern().countPatternsFrom(0, 0);
@@ -23,7 +23,7 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 			System.out.println("Still Processing...");
 			Thread.sleep(400);
 		}
-		
+		//return the final number
 		Integer result = future.get();
 	}
 
@@ -42,8 +42,9 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 	 */
 	public Future<Integer> countPatternsFrom(int firstPoint, int length) {
 		
-		Future<Integer> result = executor.submit(new CallableTask());
-		return result;
+		//Future<Integer> result = executor.submit(new Callable<Integer>());
+		
+		return null;
 	}
 
 	/**
@@ -58,7 +59,7 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 		// so it automatically prompts the user with a new number)
 		int value = 0;
 		try {
-			if (num < 0 || num >= 9) {
+			if (num < 0 || num > 9) {
 				System.out.println("This number is invalid");
 				System.out.println("Please select a number between 1 and 9");
 			} else {
@@ -89,7 +90,7 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 		// so it automatically prompts the user with a new number)
 		int value = 0;
 		try {
-			if (num < 0 || num >= 9) {
+			if (num < 1 || num > 9) {
 				System.out.println("This number is invalid");
 				System.out.println("Please select a number between 1 and 9");
 			} else {
@@ -106,8 +107,29 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 		}
 		return value;
 	};
-
-	public boolean validNextPoint(int[][] patternMatrix, int firstpoint) {
+	
+	public int possibleWays() {
+		List<String> directions = new ArrayList<>();
+		directions.add("N");
+		directions.add("S");
+		directions.add("E");
+		directions.add("O");
+		directions.add("NE");
+		directions.add("NNE");
+		directions.add("NEE");
+		directions.add("NO");
+		directions.add("NNO");
+		directions.add("NOO");
+		directions.add("SE");
+		directions.add("SSE");
+		directions.add("SEE");
+		directions.add("SO");
+		directions.add("SSO");
+		directions.add("SOO");
+		return 0;
+		
+	}
+	public boolean validNextPoint(List<Integer> history, int firstpoint, int length) {
 
 		// List of already selected points, to avoid repetition, and allow overlap
 		List<Integer> alreadyselected = new ArrayList<>();
@@ -130,9 +152,41 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 		if (patternMatrix[row][col] + 1 == firstpoint + 1 && !alreadyselected.contains(nextpoint)) {
 			// TODO
 		}
-		// Gui idk if this is it bro..
+		
 		return false;
 
 	}
+	
+	/**
+	 * method that sets the rules for navigation inside the matrix, using cardinal points as reference
+	 * on how to manipulate the rows and columns in the matrix. Ex.: if the point in the matrix is
+	 * patternMatrix[0][0], it must be impossible to navigate North and West.
+	 * @param point the current point in the matrix
+	 * @return
+	 */
+	public List<String> whatsForbiden(int[] point) {
+		List<String> forbiden = new ArrayList<>();
+		if (point[0] == 1) {
+			forbiden.add("N");
+		} else if (point[0] == 2) {
+			forbiden.add("NN");
+			forbiden.add("SS");
+		} else if (point[0] == 3) {
+			forbiden.add("S");
+		}
+		
+		if (point[1] == 1) {
+			forbiden.add("O");
+		} else if (point[1] == 2) {
+			forbiden.add("EE");
+			forbiden.add("OO");
+		} else if (point[1] == 3) {
+			forbiden.add("E");
+		}
+		
+		return forbiden;
+	}
+	
+	
 }
 

@@ -7,8 +7,9 @@ public class CallableTask implements Callable<Integer> {
 
 	@Override
 	public Integer call() throws Exception {
+		//Still to be properly implemented
 		Thread.sleep(1000);
-		return 5;
+		return 0;
 	}
 
 }

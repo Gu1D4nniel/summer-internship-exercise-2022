@@ -1,5 +1,5 @@
 ScreenLockinPattern - Guilherme Salgueiro
-----------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------=========----------------
 
 Apresento aqui a minha resolucao para o problema proposto pela Premium Minds, em que
 o objetivo era calcular o numero de padroes possiveis de se formar, indicando um ponto
@@ -9,10 +9,12 @@ de partida e o tamanho do padrao. A minha proposta de resolucao foi a seguinte:
 a limitacao de imput. Ambos os metodos dispoem de clausulas "try-catch" para melhor informar 
 o utilizador do input correto, e as excessoes que possam vir a ser levantadas.
 
-2 - Criar uma estrategia de validacao dos pontos no padrao, com o uso do metodo validNextPoint.
+2 - Criar uma estrategia de validacao dos pontos no padrao.
 O objetivo e avaliar, a partir do ponto de partida, que pontos candidatos a ser os proximos sao 
-validos, enquanto cada ponto que ja tenha sido usado no padrao seja acrescentado a uma lista, para
+validos via mecanismo de coordenadas, e manipulando correspondentemente a navegacao na matriz segundo essas
+ coordenadas enquanto cada ponto que ja tenha sido usado no padrao seja acrescentado a uma lista, para
 evitar repeticoes, e permitir que se possa passar por cima desse ponto caso ele ja tenha sido selecionado.
+(A logica ainda nao foi completamente desenvolvida, e por isso ainda nao passa nos testes.
 
 
 *OBS*: Alguns reparos que considero importantes de mencionar:
@@ -29,7 +31,7 @@ de um programa, uma vez que, durante o meu percurso academico, nao tera sido abo
 do curso. Este ponto e o anterior tornaram o processo de desenvolvimento mais desafiador, mas ao mesmo tempo
 ajudaram a enriquecer o meu conhecimento em desenvolvimento em Java.
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
 
 Tendo sido feitas estas observacoes, agradeco desde ja pela oportunidade de participar neste processo de selecao,
 e espero continuar a aprender e crescer enquanto programador junto da Premium Minds.
