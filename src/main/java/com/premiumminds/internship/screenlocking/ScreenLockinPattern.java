@@ -108,7 +108,16 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 		return value;
 	};
 	
-	public int possibleWays() {
+	/**
+	 * Method that defines every possible ways of navigation available, and then applies the
+	 * prohibitions defined on whatsForbiden.
+	 * @return
+	 */
+	public List<int[]> possibleWays(int[] point, List<int[]> history) {
+		
+		List<String> forbiden = this.whatsForbiden(point);
+		System.out.println("neste ponto, as direcoes proibidas sao: " + forbiden);
+		System.out.println("o historico atual: " + history);
 		List<String> directions = new ArrayList<>();
 		directions.add("N");
 		directions.add("S");
@@ -126,18 +135,68 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 		directions.add("SO");
 		directions.add("SSO");
 		directions.add("SOO");
-		return 0;
+		
+		for (String elem: forbiden) {
+			int i = 0;
+			while ( i < directions.size()) {
+				if (directions.contains(elem)) {
+					directions.remove(i);
+				} else {
+					i++;
+				}
+			}
+		}
+		System.out.println(directions);
+		
+		List<int[]> moves = new ArrayList<>();
+		for (String x: directions) {
+			moves.add(point);
+			for (char d: x.toCharArray()) {
+				if (d == 'N') {
+					
+				}
+			}
+		}
+		
+		if (!history.contains(moves)) {
+			//TODO
+			//Missing the exclusion of the forbidden ways
+			//Implementation incomplete
+		}
+		return moves;
 		
 	}
-	public boolean validNextPoint(List<Integer> history, int firstpoint, int length) {
+	/**
+	 * recursive method that locates the point, and along with the pattern length and
+	 * the history, evaluates the possible ways a point can go.
+	 * @param point   the initial point, it will be updated along the recursion
+	 * @param length  the size of the pattern
+	 * @param history list of all points already visited
+	 * @return        the number of patterns (as int)
+	 */
+	public int countPatternsAux(int[] point, int length, List<int[]> history) {
+		if (length == 1) {
+			return 1;
+		}
+		int patterns = 0;
+		List<int[]> pWays = this.possibleWays(point, history);
+		history.add(point);
+		
+		for (int[] nMove: pWays) {
+			patterns += this.countPatternsAux(nMove, length-1, history);
+		}
+		
+		return patterns;
+		
+	}
+	
+	//unused method
+	public void pointLocation (List<Integer> history, int firstpoint, int length) {
 
-		// List of already selected points, to avoid repetition, and allow overlap
-		List<Integer> alreadyselected = new ArrayList<>();
-		int currentpoint, nextpoint = 0, i, j;
 		int row = 0, col = 0;
 		// locate the first point in the matrix
-		for (i = 0; i < 3; i++) {
-			for (j = 0; j < 3; j++) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
 				if (patternMatrix[i][j] == firstpoint) {
 					// identify the column and row in witch the element is
 					row = i;
@@ -146,14 +205,7 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 				}
 			}
 		}
-
-		alreadyselected.add(firstpoint);
-		// isto e sempre verdade, corrigir!!
-		if (patternMatrix[row][col] + 1 == firstpoint + 1 && !alreadyselected.contains(nextpoint)) {
-			// TODO
-		}
 		
-		return false;
 
 	}
 	

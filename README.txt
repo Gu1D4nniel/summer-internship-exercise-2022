@@ -31,6 +31,12 @@ de um programa, uma vez que, durante o meu percurso academico, nao tera sido abo
 do curso. Este ponto e o anterior tornaram o processo de desenvolvimento mais desafiador, mas ao mesmo tempo
 ajudaram a enriquecer o meu conhecimento em desenvolvimento em Java.
 
+4 - Tomei a liberdade de adicionar uma versao em Python de uma classe similar a ScreenLockinPattern.java, e que
+ funciona da maneira que se pretende que o ScreenLOckinPattern.hava funcione, numa pasta separada, onde foi 
+mais facil para mim desenvolver a logica para a resolucao do problema, de uma forma mais simplificada
+e tirando vantagem da flexibilidade do python, e tentei de seguida aplicar uma "traducao" para java (a qual ainda esta
+incompleta) no entanto, peco que caso considerem, podem ver o codigo a funcionar no ficheiro "ScreenLockinPattern.py"
+que se encontra na pasta ScreenLockinPattern_logica.
 -----------------------------------------------------------------------------------------------------------------
 
 Tendo sido feitas estas observacoes, agradeco desde ja pela oportunidade de participar neste processo de selecao,

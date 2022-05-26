@@ -2,7 +2,13 @@ package main.java.com.premiumminds.internship.screenlocking;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Mock Class used to test the implementation (as a regular java application, of the methods found 
+ * on class ScreenLockinPattern and their functionability. This class can be ran as a regular 
+ * java Application, and return the total count as a regular Integer (instead of Future<Integer>
+ * @author Guilherme Salgueiro
+ *
+ */
 public class Countingtesting {
 
 	public static void main(String[] args) {
@@ -81,7 +87,8 @@ public class Countingtesting {
 		}
 		
 		if (!history.contains(moves)) {
-			
+			//TODO
+			//Missing the exclusion of certain
 		}
 		
 		return moves;
