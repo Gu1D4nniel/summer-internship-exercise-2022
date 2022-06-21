@@ -13,9 +13,11 @@ public class Countingtesting {
 
 	public static void main(String[] args) {
 		Countingtesting ct = new Countingtesting();
-		int[] ponto = {1, 3};
+		int[] ponto = {2, 2};
 		int result = ct.countPatterns(ponto, 2);
+		
 		System.out.println(result);
+		System.out.println("Estou a correr bem");
 
 	}
 	public List<String> whatsForbiden(int[] point) {
@@ -64,32 +66,38 @@ public class Countingtesting {
 		directions.add("SSO");
 		directions.add("SOO");
 		
+
 		for (String elem: forbiden) {
 			int i = 0;
 			while ( i < directions.size()) {
 				if (directions.contains(elem)) {
-					directions.remove(i);
+					directions.removeIf(s -> s.contains(elem));
 				} else {
 					i++;
 				}
 			}
 		}
-		System.out.println(directions);
+		System.out.println("as direcoes permitidas sao apenas: " + directions);
 		
 		List<int[]> moves = new ArrayList<>();
 		for (String x: directions) {
-			moves.add(point);
+			int[] move = point;
 			for (char d: x.toCharArray()) {
 				if (d == 'N') {
-					
+					move[0] = move[0] - 1;
+				} else if (d == 'S') {
+					move[0] = move[0] + 1;
+				} else if (d == 'E') {
+					move[1] = move[1] + 1;
+				} else if (d == 'O') {
+					move[1] = move[1] - 1;
 				}
 			}
+			if (!history.contains(move)) {
+				moves.add(move);
+			}
 		}
-		
-		if (!history.contains(moves)) {
-			//TODO
-			//Missing the exclusion of certain
-		}
+		System.out.println("O array de movimentos possiveis: ");
 		
 		return moves;
 	}

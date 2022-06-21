@@ -172,7 +172,7 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 	 * @param point   the initial point, it will be updated along the recursion
 	 * @param length  the size of the pattern
 	 * @param history list of all points already visited
-	 * @return        the number of patterns (as int)
+	 * @return        the number of patterns (as Int)
 	 */
 	public int countPatternsAux(int[] point, int length, List<int[]> history) {
 		if (length == 1) {
