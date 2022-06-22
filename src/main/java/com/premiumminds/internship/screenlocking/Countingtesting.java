@@ -13,38 +13,38 @@ public class Countingtesting {
 
 	public static void main(String[] args) {
 		Countingtesting ct = new Countingtesting();
-		int[] ponto = {2, 2};
+		int ponto = 3;
 		int result = ct.countPatterns(ponto, 2);
 		
 		System.out.println(result);
 		System.out.println("Estou a correr bem");
 
 	}
-	public List<String> whatsForbiden(int[] point) {
+	public List<String> whatsForbiden(int firstpoint) {
 		List<String> forbiden = new ArrayList<>();
-		if (point[0] == 1) {
+		if (firstpoint == 1 || firstpoint == 2 || firstpoint == 3) {
 			forbiden.add("N");
-		} else if (point[0] == 2) {
+		} else if (firstpoint == 4 || firstpoint == 5 || firstpoint == 6) {
 			forbiden.add("NN");
 			forbiden.add("SS");
-		} else if (point[0] == 3) {
+		} else if (firstpoint == 7 || firstpoint == 8 || firstpoint == 9) {
 			forbiden.add("S");
 		}
 		
-		if (point[1] == 1) {
+		if (firstpoint == 1 || firstpoint == 4 || firstpoint == 7) {
 			forbiden.add("O");
-		} else if (point[1] == 2) {
+		} else if (firstpoint == 2 || firstpoint == 5 || firstpoint == 8) {
 			forbiden.add("EE");
 			forbiden.add("OO");
-		} else if (point[1] == 3) {
+		} else if (firstpoint == 3 || firstpoint == 6 || firstpoint == 9) {
 			forbiden.add("E");
 		}
 		
 		return forbiden;
 	}
-	public List<int[]> possibleWays(int[] point, List<int[]> history) {
+	public List<Integer> possibleWays(int firstpoint, List<Integer> history) {
 		
-		List<String> forbiden = this.whatsForbiden(point);
+		List<String> forbiden = this.whatsForbiden(firstpoint);
 		System.out.println("neste ponto, as direcoes proibidas sao: " + forbiden);
 		System.out.println("o historico atual: " + history);
 		
@@ -79,38 +79,38 @@ public class Countingtesting {
 		}
 		System.out.println("as direcoes permitidas sao apenas: " + directions);
 		
-		List<int[]> moves = new ArrayList<>();
+		List<Integer> moves = new ArrayList<>();
 		for (String x: directions) {
-			int[] move = point;
+			int move = firstpoint;
 			for (char d: x.toCharArray()) {
 				if (d == 'N') {
-					move[0] = move[0] - 1;
+					move = move - 3;
 				} else if (d == 'S') {
-					move[0] = move[0] + 1;
+					move = move + 3;
 				} else if (d == 'E') {
-					move[1] = move[1] + 1;
+					move = move + 1;
 				} else if (d == 'O') {
-					move[1] = move[1] - 1;
+					move = move - 1;
 				}
 			}
 			if (!history.contains(move)) {
 				moves.add(move);
 			}
 		}
-		System.out.println("O array de movimentos possiveis: ");
+		System.out.println("O array de movimentos possiveis: " + moves);
 		
 		return moves;
 	}
 	
-	public int countPatternsAux(int[] point, int length, List<int[]> history) {
+	public int countPatternsAux(int point, int length, List<Integer> history) {
 		if (length == 1) {
 			return 1;
 		}
 		int patterns = 0;
-		List<int[]> pWays = this.possibleWays(point, history);
+		List<Integer> pWays = this.possibleWays(point, history);
 		history.add(point);
 		
-		for (int[] nMove: pWays) {
+		for (int nMove: pWays) {
 			patterns += this.countPatternsAux(nMove, length-1, history);
 		}
 		
@@ -118,9 +118,9 @@ public class Countingtesting {
 		
 	}
 	
-	public int countPatterns(int[] point, int length) {
+	public int countPatterns(int point, int length) {
 		
-		List<int[]> history = new ArrayList<>();
+		List<Integer> history = new ArrayList<>();
 		return this.countPatternsAux(point, length, history);
 		
 	}

@@ -28,7 +28,10 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 	}
 
 	// Matrix that represents the pattern scheme on phones.
-		int[][] patternMatrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+	// This variable ended up not being used.
+		int[][] patternMatrix = { { 1, 2, 3 }, 
+								  { 4, 5, 6 }, 
+								  { 7, 8, 9 } };
 
 	// Creation of a single thread executor
 	private ExecutorService executor = Executors.newFixedThreadPool(1);
@@ -109,63 +112,99 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 	};
 	
 	/**
+	 * method that sets the rules for navigation inside the matrix, using cardinal points as reference
+	 * on how to manipulate the rows and columns in the matrix. Ex.: if the point in the matrix is
+	 * in the first row "([1, 2, 3])", it must be impossible to navigate North. 
+	 * @param point the current point in the matrix
+	 * @return
+	 */
+	public List<String> whatsForbiden(int firstpoint) {
+		List<String> forbiden = new ArrayList<>();
+		if (firstpoint == 1 || firstpoint == 2 || firstpoint == 3) {
+			forbiden.add("N");
+		} else if (firstpoint == 4 || firstpoint == 5 || firstpoint == 6) {
+			forbiden.add("NN");
+			forbiden.add("SS");
+		} else if (firstpoint == 7 || firstpoint == 8 || firstpoint == 9) {
+			forbiden.add("S");
+		}
+		
+		if (firstpoint == 1 || firstpoint == 4 || firstpoint == 7) {
+			forbiden.add("O");
+		} else if (firstpoint == 2 || firstpoint == 5 || firstpoint == 8) {
+			forbiden.add("EE");
+			forbiden.add("OO");
+		} else if (firstpoint == 3 || firstpoint == 6 || firstpoint == 9) {
+			forbiden.add("E");
+		}
+		
+		return forbiden;
+	}
+
+	/**
 	 * Method that defines every possible ways of navigation available, and then applies the
 	 * prohibitions defined on whatsForbiden.
 	 * @return
 	 */
-	public List<int[]> possibleWays(int[] point, List<int[]> history) {
-		
-		List<String> forbiden = this.whatsForbiden(point);
-		System.out.println("neste ponto, as direcoes proibidas sao: " + forbiden);
-		System.out.println("o historico atual: " + history);
-		List<String> directions = new ArrayList<>();
-		directions.add("N");
-		directions.add("S");
-		directions.add("E");
-		directions.add("O");
-		directions.add("NE");
-		directions.add("NNE");
-		directions.add("NEE");
-		directions.add("NO");
-		directions.add("NNO");
-		directions.add("NOO");
-		directions.add("SE");
-		directions.add("SSE");
-		directions.add("SEE");
-		directions.add("SO");
-		directions.add("SSO");
-		directions.add("SOO");
-		
-		for (String elem: forbiden) {
-			int i = 0;
-			while ( i < directions.size()) {
-				if (directions.contains(elem)) {
-					directions.remove(i);
-				} else {
-					i++;
+	public List<Integer> possibleWays(int firstpoint, List<Integer> history) {
+			
+			List<String> forbiden = this.whatsForbiden(firstpoint);
+			System.out.println("neste ponto, as direcoes proibidas sao: " + forbiden);
+			System.out.println("o historico atual: " + history);
+			
+			List<String> directions = new ArrayList<>();
+			directions.add("N");
+			directions.add("S");
+			directions.add("E");
+			directions.add("O");
+			directions.add("NE");
+			directions.add("NNE");
+			directions.add("NEE");
+			directions.add("NO");
+			directions.add("NNO");
+			directions.add("NOO");
+			directions.add("SE");
+			directions.add("SSE");
+			directions.add("SEE");
+			directions.add("SO");
+			directions.add("SSO");
+			directions.add("SOO");
+			
+	
+			for (String elem: forbiden) {
+				int i = 0;
+				while ( i < directions.size()) {
+					if (directions.contains(elem)) {
+						directions.removeIf(s -> s.contains(elem));
+					} else {
+						i++;
+					}
 				}
 			}
-		}
-		System.out.println(directions);
-		
-		List<int[]> moves = new ArrayList<>();
-		for (String x: directions) {
-			moves.add(point);
-			for (char d: x.toCharArray()) {
-				if (d == 'N') {
-					
+			System.out.println("as direcoes permitidas sao apenas: " + directions);
+			
+			List<Integer> moves = new ArrayList<>();
+			for (String x: directions) {
+				int move = firstpoint;
+				for (char d: x.toCharArray()) {
+					if (d == 'N') {
+						move = move - 3;
+					} else if (d == 'S') {
+						move = move + 3;
+					} else if (d == 'E') {
+						move = move + 1;
+					} else if (d == 'O') {
+						move = move - 1;
+					}
+				}
+				if (!history.contains(move)) {
+					moves.add(move);
 				}
 			}
+			System.out.println("O array de movimentos possiveis: " + moves);
+			
+			return moves;
 		}
-		
-		if (!history.contains(moves)) {
-			//TODO
-			//Missing the exclusion of the forbidden ways
-			//Implementation incomplete
-		}
-		return moves;
-		
-	}
 	/**
 	 * recursive method that locates the point, and along with the pattern length and
 	 * the history, evaluates the possible ways a point can go.
@@ -174,15 +213,15 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 	 * @param history list of all points already visited
 	 * @return        the number of patterns (as Int)
 	 */
-	public int countPatternsAux(int[] point, int length, List<int[]> history) {
+	public int countPatternsAux(int point, int length, List<Integer> history) {
 		if (length == 1) {
 			return 1;
 		}
 		int patterns = 0;
-		List<int[]> pWays = this.possibleWays(point, history);
+		List<Integer> pWays = this.possibleWays(point, history);
 		history.add(point);
 		
-		for (int[] nMove: pWays) {
+		for (int nMove: pWays) {
 			patterns += this.countPatternsAux(nMove, length-1, history);
 		}
 		
@@ -207,36 +246,6 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 		}
 		
 
-	}
-	
-	/**
-	 * method that sets the rules for navigation inside the matrix, using cardinal points as reference
-	 * on how to manipulate the rows and columns in the matrix. Ex.: if the point in the matrix is
-	 * patternMatrix[0][0], it must be impossible to navigate North and West.
-	 * @param point the current point in the matrix
-	 * @return
-	 */
-	public List<String> whatsForbiden(int[] point) {
-		List<String> forbiden = new ArrayList<>();
-		if (point[0] == 1) {
-			forbiden.add("N");
-		} else if (point[0] == 2) {
-			forbiden.add("NN");
-			forbiden.add("SS");
-		} else if (point[0] == 3) {
-			forbiden.add("S");
-		}
-		
-		if (point[1] == 1) {
-			forbiden.add("O");
-		} else if (point[1] == 2) {
-			forbiden.add("EE");
-			forbiden.add("OO");
-		} else if (point[1] == 3) {
-			forbiden.add("E");
-		}
-		
-		return forbiden;
 	}
 	
 	

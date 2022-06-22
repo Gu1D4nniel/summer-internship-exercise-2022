@@ -1,4 +1,5 @@
 ScreenLockinPattern - Guilherme Salgueiro
+update 19/06/2022
 ----------------------------------------------------------------------------------------=========----------------
 
 Apresento aqui a minha resolucao para o problema proposto pela Premium Minds, em que
@@ -14,7 +15,7 @@ O objetivo e avaliar, a partir do ponto de partida, que pontos candidatos a ser 
 validos via mecanismo de coordenadas, e manipulando correspondentemente a navegacao na matriz segundo essas
  coordenadas enquanto cada ponto que ja tenha sido usado no padrao seja acrescentado a uma lista, para
 evitar repeticoes, e permitir que se possa passar por cima desse ponto caso ele ja tenha sido selecionado.
-(A logica ainda nao foi completamente desenvolvida, e por isso ainda nao passa nos testes.
+(A logica ainda nao foi completamente aprimorada, e por isso ainda nao passa nos testes.
 
 
 *OBS*: Alguns reparos que considero importantes de mencionar:
@@ -34,8 +35,8 @@ ajudaram a enriquecer o meu conhecimento em desenvolvimento em Java.
 4 - Tomei a liberdade de adicionar uma versao em Python de uma classe similar a ScreenLockinPattern.java, e que
  funciona da maneira que se pretende que o ScreenLOckinPattern.hava funcione, numa pasta separada, onde foi 
 mais facil para mim desenvolver a logica para a resolucao do problema, de uma forma mais simplificada
-e tirando vantagem da flexibilidade do python, e tentei de seguida aplicar uma "traducao" para java (a qual ainda esta
-incompleta) no entanto, peco que caso considerem, podem ver o codigo a funcionar no ficheiro "ScreenLockinPattern.py"
+e tirando vantagem da flexibilidade do python, e tentei de seguida aplicar uma "traducao" para java, no entanto, 
+peco que caso considerem, possam ver o codigo a funcionar no ficheiro "ScreenLockinPattern.py"
 que se encontra na pasta ScreenLockinPattern_logica.
 -----------------------------------------------------------------------------------------------------------------
 
