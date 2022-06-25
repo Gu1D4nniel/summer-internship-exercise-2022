@@ -1,5 +1,5 @@
 package test.java.com.premiumminds.internship.screenlocking;
-
+import main.java.com.premiumminds.internship.screenlocking.ScreenLockinPattern;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -24,17 +24,18 @@ public class ScreenLockinPatternTest {
    * If you want, you can make others :)
    *
    */
-  public ScreenLockinPatternTest() {
-  
-  
-  };
-  
-
-
+ 
   @Test
   public void ScreenLockinPatternTestFirst3Length2Test()  throws InterruptedException, ExecutionException, TimeoutException {
     Future<Integer> count  = new ScreenLockinPattern().countPatternsFrom(3, 2);
     Integer result = count.get(10, TimeUnit.SECONDS);
     assertEquals(result.intValue(), 5);
+  }
+  
+  @Test
+  public void ScreenLockinPatternTestFirst9Length1Test()  throws InterruptedException, ExecutionException, TimeoutException {
+    Future<Integer> count  = new ScreenLockinPattern().countPatternsFrom(9, 1);
+    Integer result = count.get(10, TimeUnit.SECONDS);
+    assertEquals(result.intValue(), 1);
   }
 }

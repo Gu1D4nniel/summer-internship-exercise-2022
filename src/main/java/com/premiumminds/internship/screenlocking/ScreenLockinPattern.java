@@ -14,27 +14,26 @@ import java.util.concurrent.Future;
  * Created by aamado on 05-05-2022. Edited by Gu1D4niel on 21-05-2022.
  * For further information on the project, please read the README.txt file.
  */
-class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
+public class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
+	
+	private static int patterns;
 	//class constructor
-	public ScreenLockinPattern() throws InterruptedException, ExecutionException {
+	
+
+	public ScreenLockinPattern() {
+		super(patterns);
 		
-		Future<Integer> future = new ScreenLockinPattern().countPatternsFrom(0, 0);
-		while (!future.isDone()) {
-			System.out.println("Still Processing...");
-			Thread.sleep(400);
-		}
-		//return the final number
-		Integer result = future.get();
 	}
 
 	// Matrix that represents the pattern scheme on phones.
-	// This variable ended up not being used.
+	// This variable ended up not being used in this solution.
 		int[][] patternMatrix = { { 1, 2, 3 }, 
 								  { 4, 5, 6 }, 
 								  { 7, 8, 9 } };
 
 	// Creation of a single thread executor
-	private ExecutorService executor = Executors.newFixedThreadPool(1);
+	private ExecutorService executor = Executors.newFixedThreadPool(2);
+	
 	
 	/**
 	 * Method to count patterns from firstPoint with the length
@@ -44,10 +43,8 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 	 * @return number of patterns
 	 */
 	public Future<Integer> countPatternsFrom(int firstPoint, int length) {
-		
-		//Future<Integer> result = executor.submit(new Callable<Integer>());
-		
-		return null;
+		List<Integer> history = new ArrayList<>();
+		return executor.submit(new CallableTask(this.countPatternsAux(firstPoint, length, history)));
 	}
 
 	/**
@@ -152,6 +149,8 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 			System.out.println("neste ponto, as direcoes proibidas sao: " + forbiden);
 			System.out.println("o historico atual: " + history);
 			
+			//Every set of directions will be translated to a movement, by adding or subtracting from the point a certain
+			//value, according to the letter of the direction.
 			List<String> directions = new ArrayList<>();
 			directions.add("N");
 			directions.add("S");
@@ -186,6 +185,9 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 			List<Integer> moves = new ArrayList<>();
 			for (String x: directions) {
 				int move = firstpoint;
+				
+				//the move might pass the limit values of  1 to 9. additions must be limited.
+				// the restriction cand be done in a more general way, instead of inside every single if statement
 				for (char d: x.toCharArray()) {
 					if (d == 'N') {
 						move = move - 3;
@@ -210,7 +212,7 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 	 * the history, evaluates the possible ways a point can go.
 	 * @param point   the initial point, it will be updated along the recursion
 	 * @param length  the size of the pattern
-	 * @param history list of all points already visited
+	 * @param history list of all points already visited, to avoid repetition and allow overlap.
 	 * @return        the number of patterns (as Int)
 	 */
 	public int countPatternsAux(int point, int length, List<Integer> history) {
@@ -228,26 +230,6 @@ class ScreenLockinPattern extends CallableTask implements IScreenLockinPattern {
 		return patterns;
 		
 	}
-	
-	//unused method
-	public void pointLocation (List<Integer> history, int firstpoint, int length) {
-
-		int row = 0, col = 0;
-		// locate the first point in the matrix
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (patternMatrix[i][j] == firstpoint) {
-					// identify the column and row in witch the element is
-					row = i;
-					col = j;
-					System.out.println("the first point is in the row" + row + "and column" + col);
-				}
-			}
-		}
-		
-
-	}
-	
 	
 }
 

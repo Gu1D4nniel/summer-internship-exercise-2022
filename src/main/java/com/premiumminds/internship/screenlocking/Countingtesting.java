@@ -14,7 +14,7 @@ public class Countingtesting {
 	public static void main(String[] args) {
 		Countingtesting ct = new Countingtesting();
 		int ponto = 3;
-		int result = ct.countPatterns(ponto, 2);
+		int result = ct.countPatterns(ponto, 3);
 		
 		System.out.println(result);
 		System.out.println("Estou a correr bem");
@@ -83,13 +83,13 @@ public class Countingtesting {
 		for (String x: directions) {
 			int move = firstpoint;
 			for (char d: x.toCharArray()) {
-				if (d == 'N') {
+				if (d == 'N' && move >= 1 && move <= 9) {
 					move = move - 3;
-				} else if (d == 'S') {
+				} else if (d == 'S' && move >= 1 && move <= 9) {
 					move = move + 3;
-				} else if (d == 'E') {
+				} else if (d == 'E' && move >= 1 && move <= 9) {
 					move = move + 1;
-				} else if (d == 'O') {
+				} else if (d == 'O' && move >= 1 && move <= 9) {
 					move = move - 1;
 				}
 			}
